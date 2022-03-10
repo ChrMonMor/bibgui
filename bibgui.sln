@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bibgui", "bibgui\bibgui.csproj", "{E87DB6F3-BFCF-4441-AA8D-1DDFD25619CA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E87DB6F3-BFCF-4441-AA8D-1DDFD25619CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E87DB6F3-BFCF-4441-AA8D-1DDFD25619CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E87DB6F3-BFCF-4441-AA8D-1DDFD25619CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E87DB6F3-BFCF-4441-AA8D-1DDFD25619CA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3190C0B4-98D6-4C68-80C8-CE9BB788727D}
+	EndGlobalSection
+EndGlobal
