@@ -14,14 +14,16 @@ namespace bibgui
 {
     public partial class Admin : Form
     {
-        public Admin()
+        public Admin(string id)
         {
             InitializeComponent();
+            userID.Text = id.ToString();
         }
 
         private void Admin_Load(object sender, EventArgs e)
         {
             FillOutAllBooksEver();
+            AllUsersFill();
         }
         private void FillOutAllBooksEver()
         {
@@ -159,7 +161,122 @@ namespace bibgui
         }
         private void AllUsersFill()
         {
+            //All Users ever DATAGRID
+            SqlConnection str4 = new SqlConnection(ConfigurationManager.ConnectionStrings["conn"].ConnectionString);
+            string query4 = "SELECT * FROM users";
+            SqlDataAdapter sda4 = new SqlDataAdapter(query4, str4);
+            DataTable dt4 = new DataTable();
+            sda4.Fill(dt4);
+            AllPeople.DataSource = dt4;
+        }
 
+        private void AllPeople_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void AllPeople_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (AllPeople.SelectedRows.Count != 0)
+            {
+                DataGridViewRow row = this.AllPeople.SelectedRows[0];
+                cprtext.Text = row.Cells["Login_CPR_No"].Value.ToString();
+                idtext.Text = row.Cells["User_ID"].Value.ToString();
+                emailtext.Text = row.Cells["Email"].Value.ToString();
+                phonetext.Text = row.Cells["Phone_No"].Value.ToString();
+            }
+        }
+
+        private void FindUserButton_Click(object sender, EventArgs e)
+        {
+            if(!string.IsNullOrEmpty(cprtext.Text))
+            {
+                string query = "DECLARE @return_value int EXEC    @return_value = [dbo].[WhatBooksHasUserHad] @CPR = N'"+cprtext.Text+"', @User_ID = NULL, @Email = NULL, @Phone_No = NULL SELECT  'Return Value' = @return_value";
+                SqlConnection str = new SqlConnection(ConfigurationManager.ConnectionStrings["conn"].ConnectionString);
+                SqlCommand sda = new SqlCommand(query, str);
+                try
+                {
+                    str.Open();
+                    sda.ExecuteNonQuery();
+                    str.Close();
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+                PersonHistoryFill(query);
+            }
+            else if (!string.IsNullOrEmpty(idtext.Text))
+            {
+                string query = "DECLARE @return_value int EXEC    @return_value = [dbo].[WhatBooksHasUserHad] @CPR = N'NULL', @User_ID = "+idtext.Text+", @Email = NULL, @Phone_No = NULL SELECT  'Return Value' = @return_value";
+                SqlConnection str = new SqlConnection(ConfigurationManager.ConnectionStrings["conn"].ConnectionString);
+                SqlCommand sda = new SqlCommand(query, str);
+                try
+                {
+                    str.Open();
+                    sda.ExecuteNonQuery();
+                    str.Close();
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+                PersonHistoryFill(query);
+            }
+            else if (!string.IsNullOrEmpty(phonetext.Text))
+            {
+                string query = "DECLARE @return_value int EXEC    @return_value = [dbo].[WhatBooksHasUserHad] @CPR = N'NULL', @User_ID = NULL, @Email = NULL, @Phone_No = "+phonetext.Text+" SELECT  'Return Value' = @return_value";
+                SqlConnection str = new SqlConnection(ConfigurationManager.ConnectionStrings["conn"].ConnectionString);
+                SqlCommand sda = new SqlCommand(query, str);
+                try
+                {
+                    str.Open();
+                    sda.ExecuteNonQuery();
+                    str.Close();
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+                PersonHistoryFill(query);
+            }
+            else if (!string.IsNullOrEmpty(emailtext.Text))
+            {
+                string query = "DECLARE @return_value int EXEC    @return_value = [dbo].[WhatBooksHasUserHad] @CPR = N'NULL', @User_ID = NULL, @Email = "+emailtext.Text+", @Phone_No = NULL SELECT  'Return Value' = @return_value";
+                SqlConnection str = new SqlConnection(ConfigurationManager.ConnectionStrings["conn"].ConnectionString);
+                SqlCommand sda = new SqlCommand(query, str);
+                try
+                {
+                    str.Open();
+                    sda.ExecuteNonQuery();
+                    str.Close();
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+                PersonHistoryFill(query);
+
+            }
+        }
+        private void PersonHistoryFill(string query4)
+        {
+            //All Users ever DATAGRID
+            SqlConnection str4 = new SqlConnection(ConfigurationManager.ConnectionStrings["conn"].ConnectionString);
+            SqlDataAdapter sda4 = new SqlDataAdapter(query4, str4);
+            DataTable dt4 = new DataTable();
+            sda4.Fill(dt4);
+            PersonHistoryDataGrid.DataSource = dt4;
+        }
+
+        private void ILiedButton_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            new user(Convert.ToInt32(userID.Text)).Show();
         }
     }
 }

@@ -49,7 +49,7 @@ namespace bibgui
             if (AreYouAdmin.Checked)
             {
                 this.Hide();
-                new Admin().Show();
+                new Admin(userID.Text).Show();
             }
         }
 

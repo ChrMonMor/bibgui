@@ -63,8 +63,12 @@
             this.label13 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.itemID = new System.Windows.Forms.Label();
+            this.PersonHistoryDataGrid = new System.Windows.Forms.DataGridView();
+            this.ILiedButton = new System.Windows.Forms.Button();
+            this.userID = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.AllBooksEver)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.AllPeople)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PersonHistoryDataGrid)).BeginInit();
             this.SuspendLayout();
             // 
             // AllBooksEver
@@ -85,6 +89,8 @@
             this.AllPeople.Name = "AllPeople";
             this.AllPeople.Size = new System.Drawing.Size(376, 198);
             this.AllPeople.TabIndex = 1;
+            this.AllPeople.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.AllPeople_CellClick);
+            this.AllPeople.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.AllPeople_CellContentClick);
             // 
             // mediatext
             // 
@@ -173,6 +179,7 @@
             this.FindUserButton.TabIndex = 12;
             this.FindUserButton.Text = "Find User";
             this.FindUserButton.UseVisualStyleBackColor = true;
+            this.FindUserButton.Click += new System.EventHandler(this.FindUserButton_Click);
             // 
             // label1
             // 
@@ -359,11 +366,42 @@
             this.itemID.Text = "label15";
             this.itemID.Visible = false;
             // 
+            // PersonHistoryDataGrid
+            // 
+            this.PersonHistoryDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.PersonHistoryDataGrid.Location = new System.Drawing.Point(794, 13);
+            this.PersonHistoryDataGrid.Name = "PersonHistoryDataGrid";
+            this.PersonHistoryDataGrid.Size = new System.Drawing.Size(395, 391);
+            this.PersonHistoryDataGrid.TabIndex = 35;
+            // 
+            // ILiedButton
+            // 
+            this.ILiedButton.Location = new System.Drawing.Point(1114, 415);
+            this.ILiedButton.Name = "ILiedButton";
+            this.ILiedButton.Size = new System.Drawing.Size(75, 23);
+            this.ILiedButton.TabIndex = 36;
+            this.ILiedButton.Text = "I Lied";
+            this.ILiedButton.UseVisualStyleBackColor = true;
+            this.ILiedButton.Click += new System.EventHandler(this.ILiedButton_Click);
+            // 
+            // userID
+            // 
+            this.userID.AutoSize = true;
+            this.userID.Location = new System.Drawing.Point(60, 188);
+            this.userID.Name = "userID";
+            this.userID.Size = new System.Drawing.Size(41, 13);
+            this.userID.TabIndex = 37;
+            this.userID.Text = "label15";
+            this.userID.Visible = false;
+            // 
             // Admin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1201, 450);
+            this.Controls.Add(this.userID);
+            this.Controls.Add(this.ILiedButton);
+            this.Controls.Add(this.PersonHistoryDataGrid);
             this.Controls.Add(this.itemID);
             this.Controls.Add(this.label14);
             this.Controls.Add(this.label13);
@@ -404,6 +442,7 @@
             this.Load += new System.EventHandler(this.Admin_Load);
             ((System.ComponentModel.ISupportInitialize)(this.AllBooksEver)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.AllPeople)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PersonHistoryDataGrid)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -446,5 +485,8 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label itemID;
+        private System.Windows.Forms.DataGridView PersonHistoryDataGrid;
+        private System.Windows.Forms.Button ILiedButton;
+        private System.Windows.Forms.Label userID;
     }
 }
