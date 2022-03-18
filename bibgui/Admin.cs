@@ -29,7 +29,7 @@ namespace bibgui
         {
             //All Books ever DATAGRID
             SqlConnection str4 = new SqlConnection(ConfigurationManager.ConnectionStrings["conn"].ConnectionString);
-            string query4 = "DECLARE @return_value int EXEC @return_value = [dbo].[FindAllBookEver] SELECT  'Return Value' = @return_value";
+            string query4 = "SELECT * FORM items";
             SqlDataAdapter sda4 = new SqlDataAdapter(query4, str4);
             DataTable dt4 = new DataTable();
             sda4.Fill(dt4);

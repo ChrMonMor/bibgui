@@ -59,18 +59,13 @@ namespace bibgui
             {
                 DataGridViewRow row = this.AllbooksAtHome.SelectedRows[0];
                 int itemID = Convert.ToInt32(row.Cells["Item_ID"].Value);
-                int till = Convert.ToInt32(row.Cells["Lent_time"].Value);
-                string query = "UPDATE items SET Status_Status_ID = 2 WHERE Item_ID = "+ itemID;
-                string query2 = "INSERT INTO users_lent_items (Users_User_ID, Items_Item_ID, Return_Date, Return_renewal, Returned) VALUES("+userID.Text+", "+itemID+ ", dateadd(day,"+ till + ",GETDATE()), 5, 0)";
-                //string query = "DECLARE	@return_value int EXEC @return_value = [dbo].[IsItemResevedByUser] @User_ID = "+ userID.Text +", @Item_ID = "+ itemID +" SELECT  'Return Value' = @return_value";
+                string query = "DECLARE	@return_value int EXEC @return_value = [dbo].[GetBookForUserInLibrary] @User_ID = "+userID.Text+", @Item_ID = "+ itemID + " SELECT  'Return Value' = @return_value";
                 SqlConnection str = new SqlConnection(ConfigurationManager.ConnectionStrings["conn"].ConnectionString);
                 SqlCommand sda = new SqlCommand(query, str);
-                SqlCommand sda2 = new SqlCommand(query2, str);
                 try
                 {
                     str.Open();
                     sda.ExecuteNonQuery();
-                    sda2.ExecuteNonQuery();
                     str.Close();
                 }
                 catch (Exception)
@@ -152,7 +147,7 @@ namespace bibgui
             {
                 DataGridViewRow row = this.OutstandingsDataGrid.SelectedRows[0];
                 int OutID = (int)row.Cells["Outstandings_ID"].Value;
-                string query = "DELETE FROM Outstandings WHERE Outstandings_ID = " + OutID;
+                string query = "DECLARE	@return_value int EXEC @return_value = [dbo].[PaysOutstanding] @ID = "+OutID+" SELECT  'Return Value' = @return_value";
                 SqlConnection str = new SqlConnection(ConfigurationManager.ConnectionStrings["conn"].ConnectionString);
                 SqlCommand sda = new SqlCommand(query, str);
                 try
@@ -230,27 +225,15 @@ namespace bibgui
             {
                 DataGridViewRow row = this.ReservedBooks.SelectedRows[0];
                 SqlConnection str = new SqlConnection(ConfigurationManager.ConnectionStrings["conn"].ConnectionString);
-                int OutID = (int)row.Cells["Users_Reseved_Item_ID"].Value;
                 int itemID = (int)row.Cells["Items_Item_ID"].Value;
 
-                string query = "DELETE FROM users_reseved_items WHERE Users_Reseved_Item_ID = " + OutID;
-                string query2 = "UPDATE items SET Status_Status_ID = 2 WHERE Item_ID = " + itemID;
-                string str4 = "SELECT Lent_time FROM items WHERE Item_ID = "+ itemID;
-                SqlDataAdapter sda2 = new SqlDataAdapter(str4, str);
-                DataTable dt5 = new DataTable();
-                sda2.Fill(dt5);
-                int till = (int)dt5.Rows[0][0];
-                string query3 = "INSERT INTO users_lent_items (Users_User_ID, Items_Item_ID, Return_Date, Return_renewal, Returned) VALUES(" + userID.Text + ", " + itemID + ", dateadd(day," + till + ",GETDATE()), 5, 0)";
+                string query = "DECLARE	@return_value int EXEC @return_value = [dbo].[IsItemResevedByUser] @User_ID = "+ userID.Text + ", @Item_ID = "+ itemID + " SELECT  'Return Value' = @return_value";
 
                 SqlCommand sda = new SqlCommand(query, str);
-                SqlCommand sda3 = new SqlCommand(query2, str);
-                SqlCommand sda4 = new SqlCommand(query3, str);
                 try
                 {
                     str.Open();
                     sda.ExecuteNonQuery();
-                    sda3.ExecuteNonQuery();
-                    sda4.ExecuteNonQuery();
                     str.Close();
                 }
                 catch (Exception)
